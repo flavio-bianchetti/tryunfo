@@ -1,7 +1,8 @@
 const Selects = [
   {
     testid: 'rare-input',
-    name: 'Raridade',
+    name: 'cardRare',
+    label: 'Raridade',
     className: 'select selectRare',
     options: [
       'normal',

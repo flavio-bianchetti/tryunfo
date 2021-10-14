@@ -1,7 +1,8 @@
 const TextAreas = [
   {
     testid: 'description-input',
-    name: 'Descrição',
+    name: 'cardDescription',
+    label: 'Descrição',
     className: 'textArea textAreaDescription',
   },
 ];

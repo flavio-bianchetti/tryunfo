@@ -1,19 +1,22 @@
 const Numbers = [
   {
     testid: 'attr1-input',
-    name: 'Attr01',
+    name: 'cardAttr1',
+    label: 'Attr01',
     type: 'number',
     className: 'input inputAttribute1',
   },
   {
     testid: 'attr2-input',
-    name: 'Attr02',
+    name: 'cardAttr2',
+    label: 'Attr02',
     type: 'number',
     className: 'input inputAttribute2',
   },
   {
     testid: 'attr3-input',
-    name: 'Attr03',
+    name: 'cardAttr3',
+    label: 'Attr03',
     type: 'number',
     className: 'input inputAttribute3',
   },

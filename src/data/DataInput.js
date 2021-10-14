@@ -1,13 +1,15 @@
 const Inputs = [
   {
     testid: 'name-input',
-    name: 'Nome',
+    label: 'Nome',
+    name: 'cardName',
     type: 'text',
     className: 'input inputCardName',
   },
   {
     testid: 'image-input',
-    name: 'Imagem',
+    label: 'imagem',
+    name: 'cardImage',
     type: 'text',
     className: 'input inputCardImage',
   },
