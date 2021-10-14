@@ -89,7 +89,7 @@ class Form extends React.Component {
           className={ DataCheckbox[0].className }
           text={ DataCheckbox[0].text }
           value={ cardTrunfo }
-          onChange={ onInputChange }
+          onClick={ onInputChange }
         />
         <Button
           testid={ DataButton[0].testid }

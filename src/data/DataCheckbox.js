@@ -1,7 +1,7 @@
 const Checkboxs = [
   {
     testid: 'trunfo-input',
-    name: 'trunfo',
+    name: 'cardTrunfo',
     type: 'checkbox',
     className: 'checkbox inputTrunfoCheckbox',
     text: 'Super Trybe Trunfo',

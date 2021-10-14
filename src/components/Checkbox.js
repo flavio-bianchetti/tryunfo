@@ -9,7 +9,7 @@ class Checkbox extends React.Component {
       name,
       className,
       value,
-      onChange,
+      onClick,
       text,
     } = this.props;
 
@@ -22,8 +22,8 @@ class Checkbox extends React.Component {
             name={ name }
             id={ name }
             className={ className }
-            checked={ value }
-            onChange={ onChange }
+            defaultChecked={ value }
+            onClick={ onClick }
           />
           { text }
         </label>
@@ -38,7 +38,7 @@ Checkbox.propTypes = {
   name: PropTypes.string,
   className: PropTypes.string,
   value: PropTypes.string,
-  onChange: PropTypes.func,
+  onClick: PropTypes.func,
   text: PropTypes.string,
 }.isRequired;
 
