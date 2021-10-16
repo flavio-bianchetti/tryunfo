@@ -18,6 +18,7 @@ class App extends React.Component {
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
+      cardsSaved: [],
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -26,6 +27,8 @@ class App extends React.Component {
     this.checkStatusInputFields = this.checkStatusInputFields.bind(this);
     this.checkMinMaxInputFields = this.checkMinMaxInputFields.bind(this);
     this.checkMaxSumInputFields = this.checkMaxSumInputFields.bind(this);
+    this.saveCard = this.saveCard.bind(this);
+    this.cleanFormAfterSave = this.cleanFormAfterSave.bind(this);
   }
 
   onInputChange({ target }) {
@@ -39,8 +42,11 @@ class App extends React.Component {
     }, this.setStateButtonSave);
   }
 
-  onSaveButtonClick(event) {
-    console.log(event);
+  onSaveButtonClick() {
+    this.setState((previusState) => ({
+      cardsSaved: [...previusState.cardsSaved, this.saveCard()],
+    }));
+    this.cleanFormAfterSave();
   }
 
   setStateButtonSave() {
@@ -104,6 +110,45 @@ class App extends React.Component {
     );
   }
 
+  saveCard() {
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    } = this.state;
+
+    return {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    };
+  }
+
+  cleanFormAfterSave() {
+    this.setState({
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: 'normal',
+      cardTrunfo: false,
+      hasTrunfo: false,
+      isSaveButtonDisabled: false,
+    });
+  }
+
   render() {
     const {
       cardName,
@@ -146,6 +191,7 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        {/* cards */}
       </div>
     );
   }

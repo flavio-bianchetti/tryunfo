@@ -14,16 +14,15 @@ class Button extends React.Component {
     } = this.props;
 
     return (
-      <button
+      <input
         data-testid={ testid }
         type={ type === 'submit' ? 'submit' : 'button' }
         name={ name }
         className={ className }
         disabled={ disabled }
         onClick={ onClick }
-      >
-        { text }
-      </button>
+        value={ text }
+      />
     );
   }
 }
