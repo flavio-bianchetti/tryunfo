@@ -5,6 +5,7 @@ import TextArea from './TextArea';
 import Select from './Select';
 import Checkbox from './Checkbox';
 import Button from './Button';
+import Span from './Span';
 import DataInput from '../data/DataInput';
 import DataTextArea from '../data/DataTextArea';
 import DataNumber from '../data/DataNumber';
@@ -13,40 +14,6 @@ import DataCheckbox from '../data/DataCheckbox';
 import DataButton from '../data/DataButton';
 
 class Form extends React.Component {
-  // constructor() {
-  //   super();
-  //   this.buttonSaveState = this.buttonSaveState.bind(this);
-  // }
-
-  // buttonSaveState() {
-  //   const maxSum = 210;
-  //   const max = 90;
-  //   const min = 0;
-  //   const {
-  //     cardName,
-  //     cardDescription,
-  //     cardImage,
-  //     cardAttr1,
-  //     cardAttr2,
-  //     cardAttr3,
-  //   } = this.props;
-
-  //   return (
-  //     cardName.length < 1
-  //     || cardDescription.length < 1
-  //     || cardImage.length < 1
-  //     || parseInt(cardAttr1, 10) < min
-  //     || parseInt(cardAttr1, 10) > max
-  //     || parseInt(cardAttr2, 10) < min
-  //     || parseInt(cardAttr2, 10) > max
-  //     || parseInt(cardAttr3, 10) < min
-  //     || parseInt(cardAttr3, 10) > max
-  //     || (parseInt(cardAttr1, 10)
-  //       + parseInt(cardAttr2, 10)
-  //       + parseInt(cardAttr3, 10) > maxSum)
-  //   );
-  // }
-
   render() {
     const {
       cardName,
@@ -57,10 +24,10 @@ class Form extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick,
-      // setMaxAttrCard,
     } = this.props;
 
     const cardAttr = [cardAttr1, cardAttr2, cardAttr3];
@@ -119,15 +86,23 @@ class Form extends React.Component {
           value={ cardRare }
           onChange={ onInputChange }
         />
-        <Checkbox
-          testid={ DataCheckbox[0].testid }
-          name={ DataCheckbox[0].name }
-          type={ DataCheckbox[0].type }
-          className={ DataCheckbox[0].className }
-          text={ DataCheckbox[0].text }
-          value={ cardTrunfo }
-          onClick={ onInputChange }
-        />
+        {
+          hasTrunfo
+          && <Span value="Você já tem um Super Trunfo em seu baralho" />
+        }
+
+        {
+          !hasTrunfo
+            && <Checkbox
+              testid={ DataCheckbox[0].testid }
+              name={ DataCheckbox[0].name }
+              type={ DataCheckbox[0].type }
+              className={ DataCheckbox[0].className }
+              text={ DataCheckbox[0].text }
+              value={ cardTrunfo }
+              onClick={ onInputChange }
+            />
+        }
         <Button
           testid={ DataButton[0].testid }
           type={ DataButton[0].type }
@@ -149,6 +124,9 @@ Form.propTypes = {
   cardAttr2: PropTypes.string,
   cardAttr3: PropTypes.string,
   cardImage: PropTypes.string,
+  cardRare: PropTypes.string,
+  cardTrunfo: PropTypes.bool,
+  hasTrunfo: PropTypes.bool,
   isSaveButtonDisabled: PropTypes.bool,
   onInputChange: PropTypes.func,
   onSaveButtonClick: PropTypes.func,

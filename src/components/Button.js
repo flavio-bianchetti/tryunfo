@@ -16,7 +16,7 @@ class Button extends React.Component {
     return (
       <input
         data-testid={ testid }
-        type={ type === 'submit' ? 'submit' : 'button' }
+        type={ type }
         name={ name }
         className={ className }
         disabled={ disabled }

@@ -46,6 +46,13 @@ class App extends React.Component {
     this.setState((previusState) => ({
       cardsSaved: [...previusState.cardsSaved, this.saveCard()],
     }));
+
+    if (cardTrunfo) {
+      this.setState({
+        hasTrunfo: true,
+      });
+    }
+
     this.cleanFormAfterSave();
   }
 
@@ -144,7 +151,6 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
-      hasTrunfo: false,
       isSaveButtonDisabled: false,
     });
   }
