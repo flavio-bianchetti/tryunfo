@@ -13,6 +13,40 @@ import DataCheckbox from '../data/DataCheckbox';
 import DataButton from '../data/DataButton';
 
 class Form extends React.Component {
+  // constructor() {
+  //   super();
+  //   this.buttonSaveState = this.buttonSaveState.bind(this);
+  // }
+
+  // buttonSaveState() {
+  //   const maxSum = 210;
+  //   const max = 90;
+  //   const min = 0;
+  //   const {
+  //     cardName,
+  //     cardDescription,
+  //     cardImage,
+  //     cardAttr1,
+  //     cardAttr2,
+  //     cardAttr3,
+  //   } = this.props;
+
+  //   return (
+  //     cardName.length < 1
+  //     || cardDescription.length < 1
+  //     || cardImage.length < 1
+  //     || parseInt(cardAttr1, 10) < min
+  //     || parseInt(cardAttr1, 10) > max
+  //     || parseInt(cardAttr2, 10) < min
+  //     || parseInt(cardAttr2, 10) > max
+  //     || parseInt(cardAttr3, 10) < min
+  //     || parseInt(cardAttr3, 10) > max
+  //     || (parseInt(cardAttr1, 10)
+  //       + parseInt(cardAttr2, 10)
+  //       + parseInt(cardAttr3, 10) > maxSum)
+  //   );
+  // }
+
   render() {
     const {
       cardName,
@@ -26,6 +60,7 @@ class Form extends React.Component {
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick,
+      // setMaxAttrCard,
     } = this.props;
 
     const cardAttr = [cardAttr1, cardAttr2, cardAttr3];
@@ -59,6 +94,8 @@ class Form extends React.Component {
               name={ number.name }
               label={ number.label }
               className={ number.className }
+              min={ number.min }
+              max={ number.max }
               value={ cardAttr[index] }
               onChange={ onInputChange }
             />

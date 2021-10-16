@@ -9,6 +9,8 @@ class Input extends React.Component {
       name,
       label,
       className,
+      min,
+      max,
       value,
       onChange,
     } = this.props;
@@ -23,6 +25,8 @@ class Input extends React.Component {
           type={ type }
           name={ name }
           className={ className }
+          min={ min }
+          max={ max }
           value={ value }
           onChange={ onChange }
         />
@@ -37,6 +41,8 @@ Input.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
   className: PropTypes.string,
+  min: PropTypes.string,
+  max: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
 }.isRequired;

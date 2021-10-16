@@ -17,28 +17,38 @@ class App extends React.Component {
       cardRare: 'normal',
       cardTrunfo: false,
       hasTrunfo: false,
-      isSaveButtonDisabled: false,
+      isSaveButtonDisabled: true,
     };
 
     this.onInputChange = this.onInputChange.bind(this);
-
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    this.setStateButtonSave = this.setStateButtonSave.bind(this);
+    this.checkStatusInputFields = this.checkStatusInputFields.bind(this);
+    this.checkMinMaxInputFields = this.checkMinMaxInputFields.bind(this);
+    this.checkMaxSumInputFields = this.checkMaxSumInputFields.bind(this);
   }
 
   onInputChange({ target }) {
     const { name } = target;
     const value = target.type === 'checkbox'
       ? target.checked
-      : target.value;
+      : `${target.value}`;
+
     this.setState({
       [name]: value,
-    });
+    }, this.setStateButtonSave);
   }
 
-  onSaveButtonClick({ target }) {
-    const { isSaveButtonDisabled } = target.enabled;
-    console.log(isSaveButtonDisabled);
-    if (isSaveButtonDisabled) {
+  onSaveButtonClick(event) {
+    console.log(event);
+  }
+
+  setStateButtonSave() {
+    if (
+      this.checkStatusInputFields()
+      && this.checkMinMaxInputFields()
+      && this.checkMaxSumInputFields()
+    ) {
       this.setState({
         isSaveButtonDisabled: false,
       });
@@ -47,6 +57,51 @@ class App extends React.Component {
         isSaveButtonDisabled: true,
       });
     }
+  }
+
+  checkStatusInputFields() {
+    const {
+      cardName,
+      cardDescription,
+      cardImage,
+    } = this.state;
+    return (
+      cardName.length >= 1
+      && cardDescription.length >= 1
+      && cardImage.length >= 1
+    );
+  }
+
+  checkMinMaxInputFields() {
+    const max = 90;
+    const min = 0;
+    const {
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+    } = this.state;
+    return (
+      Number(cardAttr1) >= min
+      && Number(cardAttr1) <= max
+      && Number(cardAttr2) >= min
+      && Number(cardAttr2) <= max
+      && Number(cardAttr3) >= min
+      && Number(cardAttr3) <= max
+    );
+  }
+
+  checkMaxSumInputFields() {
+    const maxSum = 210;
+    const {
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+    } = this.state;
+    return (
+      Number(cardAttr1)
+        + Number(cardAttr2)
+        + Number(cardAttr3) <= maxSum
+    );
   }
 
   render() {
@@ -79,6 +134,7 @@ class App extends React.Component {
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onInputChange={ this.onInputChange }
           onSaveButtonClick={ this.onSaveButtonClick }
+          setMaxAttrCard={ this.setMaxAttrCard }
         />
         <Card
           cardName={ cardName }
