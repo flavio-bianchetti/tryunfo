@@ -1,25 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Input from './Input';
+import Select from './Select';
 import DataInput from '../data/DataInput';
+import DataSelect from '../data/DataSelect';
 
 class Search extends React.Component {
   render() {
     const {
       cardSearch,
+      cardFilter,
       onInputChange,
     } = this.props;
     return (
       <div>
-        <Input
-          testid={ DataInput[2].testid }
-          type={ DataInput[2].type }
-          name={ DataInput[2].name }
-          label={ DataInput[2].label }
-          className={ DataInput[2].className }
-          value={ cardSearch }
-          onChange={ onInputChange }
-        />
+        <div>
+          <Input
+            testid={ DataInput[2].testid }
+            type={ DataInput[2].type }
+            name={ DataInput[2].name }
+            label={ DataInput[2].label }
+            className={ DataInput[2].className }
+            value={ cardSearch }
+            onChange={ onInputChange }
+          />
+        </div>
+        <div>
+          <Select
+            testid={ DataSelect[1].testid }
+            name={ DataSelect[1].name }
+            label={ DataSelect[1].label }
+            className={ DataSelect[1].className }
+            options={ DataSelect[1].options }
+            value={ cardFilter }
+            onChange={ onInputChange }
+          />
+        </div>
       </div>
     );
   }
@@ -27,6 +43,7 @@ class Search extends React.Component {
 
 Search.propTypes = {
   cardSearch: PropTypes.string,
+  cardFilter: PropTypes.string,
   onInputChange: PropTypes.func,
 }.isRequired;
 
