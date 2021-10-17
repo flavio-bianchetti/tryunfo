@@ -2,6 +2,7 @@ import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
 import CardDeck from './components/CardDeck';
+import Search from './components/Search';
 import './App.css';
 
 class App extends React.Component {
@@ -21,6 +22,7 @@ class App extends React.Component {
       isSaveButtonDisabled: true,
       cardsSaved: [],
       cardsNumbers: 0,
+      cardSearch: '',
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -47,15 +49,12 @@ class App extends React.Component {
 
   onSaveButtonClick(event) {
     event.preventDefault();
-
     this.setState((previusState) => ({
       cardsSaved: [...previusState.cardsSaved, this.saveCard()],
     }));
-
     this.setState((previusState) => ({
       cardsNumbers: previusState.cardsNumbers + 1,
     }));
-
     this.cleanFormAfterSave();
   }
 
@@ -114,9 +113,7 @@ class App extends React.Component {
     const max = 90;
     const min = 0;
     const {
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
+      cardAttr1, cardAttr2, cardAttr3,
     } = this.state;
     return (
       Number(cardAttr1) >= min
@@ -147,7 +144,6 @@ class App extends React.Component {
       cardName, cardDescription, cardAttr1, cardAttr2,
       cardAttr3, cardImage, cardRare, cardTrunfo, cardsNumbers,
     } = this.state;
-
     return {
       cardName,
       cardDescription,
@@ -172,6 +168,7 @@ class App extends React.Component {
       cardRare: 'normal',
       cardTrunfo: false,
       hasTrunfo: cardsSaved.some((card) => card.cardTrunfo),
+      cardSearch: '',
       isSaveButtonDisabled: false,
     }));
   }
@@ -180,7 +177,7 @@ class App extends React.Component {
     const {
       cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
       cardImage, cardRare, cardTrunfo, hasTrunfo, isSaveButtonDisabled,
-      cardsSaved, cardsNumbers,
+      cardsSaved, cardsNumbers, cardSearch,
     } = this.state;
 
     return (
@@ -211,23 +208,28 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        <Search
+          cardSearch={ cardSearch }
+          onInputChange={ this.onInputChange }
+        />
         {
-          cardsSaved.map((card, index) => (
-            <CardDeck
-              key={ index }
-              id={ card.cardName }
-              cardsNumbers={ cardsNumbers }
-              cardName={ card.cardName }
-              cardDescription={ card.cardDescription }
-              cardAttr1={ card.cardAttr1 }
-              cardAttr2={ card.cardAttr2 }
-              cardAttr3={ card.cardAttr3 }
-              cardImage={ card.cardImage }
-              cardRare={ card.cardRare }
-              cardTrunfo={ card.cardTrunfo }
-              onClick={ this.deleteCardOfDeck }
-            />
-          ))
+          cardsSaved.filter((filter) => filter.cardName.includes(cardSearch))
+            .map((card, index) => (
+              <CardDeck
+                key={ index }
+                id={ card.cardName }
+                cardsNumbers={ cardsNumbers }
+                cardName={ card.cardName }
+                cardDescription={ card.cardDescription }
+                cardAttr1={ card.cardAttr1 }
+                cardAttr2={ card.cardAttr2 }
+                cardAttr3={ card.cardAttr3 }
+                cardImage={ card.cardImage }
+                cardRare={ card.cardRare }
+                cardTrunfo={ card.cardTrunfo }
+                onClick={ this.deleteCardOfDeck }
+              />
+            ))
         }
       </div>
     );

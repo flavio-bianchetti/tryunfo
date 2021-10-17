@@ -13,6 +13,13 @@ const Buttons = [
     className: 'button buttonDeleteCard',
     text: 'Excluir',
   },
+  {
+    testid: 'search-button',
+    type: 'button',
+    name: 'searchCard',
+    className: 'button buttonSearchCard',
+    text: 'Buscar',
+  },
 ];
 
 export default Buttons;
