@@ -6,6 +6,13 @@ const Buttons = [
     className: 'button buttonSaveCard',
     text: 'Salvar',
   },
+  {
+    testid: 'delete-button',
+    type: 'button',
+    name: 'deleteCard',
+    className: 'button buttonDeleteCard',
+    text: 'Excluir',
+  },
 ];
 
 export default Buttons;

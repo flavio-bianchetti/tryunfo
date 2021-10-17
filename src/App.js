@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import CardDeck from './components/CardDeck';
 import './App.css';
 
 class App extends React.Component {
@@ -19,6 +20,7 @@ class App extends React.Component {
       hasTrunfo: false,
       isSaveButtonDisabled: true,
       cardsSaved: [],
+      cardsNumbers: 0,
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -29,6 +31,7 @@ class App extends React.Component {
     this.checkMaxSumInputFields = this.checkMaxSumInputFields.bind(this);
     this.saveCard = this.saveCard.bind(this);
     this.cleanFormAfterSave = this.cleanFormAfterSave.bind(this);
+    this.deleteCardOfDeck = this.deleteCardOfDeck.bind(this);
   }
 
   onInputChange({ target }) {
@@ -49,6 +52,10 @@ class App extends React.Component {
       cardsSaved: [...previusState.cardsSaved, this.saveCard()],
     }));
 
+    this.setState((previusState) => ({
+      cardsNumbers: previusState.cardsNumbers + 1,
+    }));
+
     this.cleanFormAfterSave();
   }
 
@@ -66,6 +73,28 @@ class App extends React.Component {
         isSaveButtonDisabled: true,
       });
     }
+  }
+
+  setStateCheckBoxSuperTrunfo() {
+    const { cardsSaved } = this.state;
+    const isSuperTrunfo = cardsSaved.some((card) => card.cardTrunfo);
+    if (isSuperTrunfo) {
+      this.setState({
+        hasTrunfo: true,
+      });
+    } else {
+      this.setState({
+        hasTrunfo: false,
+      }, this.setStateButtonSave);
+    }
+  }
+
+  deleteCardOfDeck({ target }) {
+    const { name } = target;
+    const { cardsSaved } = this.state;
+    this.setState({
+      cardsSaved: [...cardsSaved.filter((card) => card.cardName !== name)],
+    }, this.setStateCheckBoxSuperTrunfo);
   }
 
   checkStatusInputFields() {
@@ -115,14 +144,8 @@ class App extends React.Component {
 
   saveCard() {
     const {
-      cardName,
-      cardDescription,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
-      cardImage,
-      cardRare,
-      cardTrunfo,
+      cardName, cardDescription, cardAttr1, cardAttr2,
+      cardAttr3, cardImage, cardRare, cardTrunfo, cardsNumbers,
     } = this.state;
 
     return {
@@ -134,6 +157,7 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      cardsNumbers,
     };
   }
 
@@ -154,17 +178,9 @@ class App extends React.Component {
 
   render() {
     const {
-      cardName,
-      cardDescription,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
-      cardImage,
-      cardRare,
-      cardTrunfo,
-      hasTrunfo,
-      isSaveButtonDisabled,
-      cardsSaved,
+      cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
+      cardImage, cardRare, cardTrunfo, hasTrunfo, isSaveButtonDisabled,
+      cardsSaved, cardsNumbers,
     } = this.state;
 
     return (
@@ -197,8 +213,10 @@ class App extends React.Component {
         />
         {
           cardsSaved.map((card, index) => (
-            <Card
+            <CardDeck
               key={ index }
+              id={ card.cardName }
+              cardsNumbers={ cardsNumbers }
               cardName={ card.cardName }
               cardDescription={ card.cardDescription }
               cardAttr1={ card.cardAttr1 }
@@ -207,6 +225,7 @@ class App extends React.Component {
               cardImage={ card.cardImage }
               cardRare={ card.cardRare }
               cardTrunfo={ card.cardTrunfo }
+              onClick={ this.deleteCardOfDeck }
             />
           ))
         }
