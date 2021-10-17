@@ -24,6 +24,7 @@ class App extends React.Component {
       cardsNumbers: 0,
       cardSearch: '',
       cardFilter: 'todas',
+      cardTrunfoFilter: false,
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -171,6 +172,7 @@ class App extends React.Component {
       hasTrunfo: cardsSaved.some((card) => card.cardTrunfo),
       cardSearch: '',
       cardFilter: 'todas',
+      cardTrunfoFilter: false,
       isSaveButtonDisabled: false,
     }));
   }
@@ -179,7 +181,7 @@ class App extends React.Component {
     const {
       cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
       cardImage, cardRare, cardTrunfo, hasTrunfo, isSaveButtonDisabled,
-      cardsSaved, cardsNumbers, cardSearch, cardFilter,
+      cardsSaved, cardsNumbers, cardSearch, cardFilter, cardTrunfoFilter,
     } = this.state;
 
     return (
@@ -213,12 +215,15 @@ class App extends React.Component {
         <Search
           cardSearch={ cardSearch }
           cardFilter={ cardFilter }
+          cardTrunfoFilter={ cardTrunfoFilter }
           onInputChange={ this.onInputChange }
         />
         {
           cardsSaved.filter((filter) => filter.cardName.includes(cardSearch)
             && (cardFilter === 'todas'
-              ? filter.cardRare : filter.cardRare === cardFilter))
+              ? filter.cardRare : filter.cardRare === cardFilter)
+            && (cardTrunfoFilter === false
+              ? (filter.cardTrunfo || !filter.cardTrunfo) : filter.cardTrunfo === true))
             .map((card, index) => (
               <CardDeck
                 key={ index }

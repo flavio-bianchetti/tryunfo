@@ -2,14 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Input from './Input';
 import Select from './Select';
+import Checkbox from './Checkbox';
 import DataInput from '../data/DataInput';
 import DataSelect from '../data/DataSelect';
+import DataCheckbox from '../data/DataCheckbox';
 
 class Search extends React.Component {
   render() {
     const {
       cardSearch,
       cardFilter,
+      cardTrunfoFilter,
       onInputChange,
     } = this.props;
     return (
@@ -36,6 +39,17 @@ class Search extends React.Component {
             onChange={ onInputChange }
           />
         </div>
+        <div>
+          <Checkbox
+            testid={ DataCheckbox[1].testid }
+            name={ DataCheckbox[1].name }
+            type={ DataCheckbox[1].type }
+            className={ DataCheckbox[1].className }
+            text={ DataCheckbox[1].text }
+            value={ cardTrunfoFilter }
+            onClick={ onInputChange }
+          />
+        </div>
       </div>
     );
   }
@@ -44,6 +58,7 @@ class Search extends React.Component {
 Search.propTypes = {
   cardSearch: PropTypes.string,
   cardFilter: PropTypes.string,
+  cardTrunfoFilter: PropTypes.bool,
   onInputChange: PropTypes.func,
 }.isRequired;
 
